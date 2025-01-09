@@ -1,5 +1,5 @@
 /*
-  Joystick.cpp
+  JoystickEX.cpp
 
   Copyright (c) 2015-2017, Matthew Heironimus
 
@@ -18,7 +18,7 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include "Joystick.h"
+#include "JoystickEX.h"
 
 #if defined(_USING_DYNAMIC_HID)
 
@@ -43,7 +43,7 @@
 #define JOYSTICK_INCLUDE_BRAKE       B00001000
 #define JOYSTICK_INCLUDE_STEERING    B00010000
 
-Joystick_::Joystick_(
+JoystickEX_::JoystickEX_(
 	uint8_t hidReportId,
 	uint8_t joystickType,
     uint8_t buttonCount,
@@ -499,17 +499,17 @@ Joystick_::Joystick_(
     }
 }
 
-void Joystick_::begin(bool initAutoSendState)
+void JoystickEX_::begin(bool initAutoSendState)
 {
 	_autoSendState = initAutoSendState;
 	sendState();
 }
 
-void Joystick_::end()
+void JoystickEX_::end()
 {
 }
 
-void Joystick_::setButton(uint8_t button, uint8_t value)
+void JoystickEX_::setButton(uint8_t button, uint8_t value)
 {
 	if (value == 0)
 	{
@@ -520,7 +520,7 @@ void Joystick_::setButton(uint8_t button, uint8_t value)
 		pressButton(button);
 	}
 }
-void Joystick_::pressButton(uint8_t button)
+void JoystickEX_::pressButton(uint8_t button)
 {
     if (button >= _buttonCount) return;
 
@@ -530,7 +530,7 @@ void Joystick_::pressButton(uint8_t button)
 	bitSet(_buttonValues[index], bit);
 	if (_autoSendState) sendState();
 }
-void Joystick_::releaseButton(uint8_t button)
+void JoystickEX_::releaseButton(uint8_t button)
 {
     if (button >= _buttonCount) return;
 
@@ -541,77 +541,77 @@ void Joystick_::releaseButton(uint8_t button)
 	if (_autoSendState) sendState();
 }
 
-void Joystick_::setXAxis(int32_t value)
+void JoystickEX_::setXAxis(int32_t value)
 {
 	_xAxis = value;
 	if (_autoSendState) sendState();
 }
-void Joystick_::setYAxis(int32_t value)
+void JoystickEX_::setYAxis(int32_t value)
 {
 	_yAxis = value;
 	if (_autoSendState) sendState();
 }
-void Joystick_::setZAxis(int32_t value)
+void JoystickEX_::setZAxis(int32_t value)
 {
 	_zAxis = value;
 	if (_autoSendState) sendState();
 }
 
-void Joystick_::setRxAxis(int32_t value)
+void JoystickEX_::setRxAxis(int32_t value)
 {
 	_xAxisRotation = value;
 	if (_autoSendState) sendState();
 }
-void Joystick_::setRyAxis(int32_t value)
+void JoystickEX_::setRyAxis(int32_t value)
 {
 	_yAxisRotation = value;
 	if (_autoSendState) sendState();
 }
-void Joystick_::setRzAxis(int32_t value)
+void JoystickEX_::setRzAxis(int32_t value)
 {
 	_zAxisRotation = value;
 	if (_autoSendState) sendState();
 }
 
-void Joystick_::setSliderAxis(int16_t value)
+void JoystickEX_::setSliderAxis(int16_t value)
 {
 	_sliderAxis = value;
 	if (_autoSendState) sendState();
 }
-void Joystick_::setDialAxis(int16_t value)
+void JoystickEX_::setDialAxis(int16_t value)
 {
 	_dialAxis = value;
 	if (_autoSendState) sendState();
 }
 
 
-void Joystick_::setRudder(int32_t value)
+void JoystickEX_::setRudder(int32_t value)
 {
 	_rudder = value;
 	if (_autoSendState) sendState();
 }
-void Joystick_::setThrottle(int32_t value)
+void JoystickEX_::setThrottle(int32_t value)
 {
 	_throttle = value;
 	if (_autoSendState) sendState();
 }
-void Joystick_::setAccelerator(int32_t value)
+void JoystickEX_::setAccelerator(int32_t value)
 {
 	_accelerator = value;
 	if (_autoSendState) sendState();
 }
-void Joystick_::setBrake(int32_t value)
+void JoystickEX_::setBrake(int32_t value)
 {
 	_brake = value;
 	if (_autoSendState) sendState();
 }
-void Joystick_::setSteering(int32_t value)
+void JoystickEX_::setSteering(int32_t value)
 {
 	_steering = value;
 	if (_autoSendState) sendState();
 }
 
-void Joystick_::setHatSwitch(int8_t hatSwitchIndex, int16_t value)
+void JoystickEX_::setHatSwitch(int8_t hatSwitchIndex, int16_t value)
 {
 	if (hatSwitchIndex >= _hatSwitchCount) return;
 	
@@ -619,7 +619,7 @@ void Joystick_::setHatSwitch(int8_t hatSwitchIndex, int16_t value)
 	if (_autoSendState) sendState();
 }
 
-int Joystick_::buildAndSet16BitValue(bool includeValue, int32_t value, int32_t valueMinimum, int32_t valueMaximum, int32_t actualMinimum, int32_t actualMaximum, uint8_t dataLocation[]) 
+int JoystickEX_::buildAndSet16BitValue(bool includeValue, int32_t value, int32_t valueMinimum, int32_t valueMaximum, int32_t actualMinimum, int32_t actualMaximum, uint8_t dataLocation[]) 
 {
 	int32_t convertedValue;
 	uint8_t highByte;
@@ -652,17 +652,17 @@ int Joystick_::buildAndSet16BitValue(bool includeValue, int32_t value, int32_t v
 	return 2;
 }
 
-int Joystick_::buildAndSetAxisValue(bool includeAxis, int32_t axisValue, int32_t axisMinimum, int32_t axisMaximum, uint8_t dataLocation[]) 
+int JoystickEX_::buildAndSetAxisValue(bool includeAxis, int32_t axisValue, int32_t axisMinimum, int32_t axisMaximum, uint8_t dataLocation[]) 
 {
 	return buildAndSet16BitValue(includeAxis, axisValue, axisMinimum, axisMaximum, JOYSTICK_AXIS_MINIMUM, JOYSTICK_AXIS_MAXIMUM, dataLocation);
 }
 
-int Joystick_::buildAndSetSimulationValue(bool includeValue, int32_t value, int32_t valueMinimum, int32_t valueMaximum, uint8_t dataLocation[]) 
+int JoystickEX_::buildAndSetSimulationValue(bool includeValue, int32_t value, int32_t valueMinimum, int32_t valueMaximum, uint8_t dataLocation[]) 
 {
 	return buildAndSet16BitValue(includeValue, value, valueMinimum, valueMaximum, JOYSTICK_SIMULATOR_MINIMUM, JOYSTICK_SIMULATOR_MAXIMUM, dataLocation);
 }
 
-void Joystick_::sendState()
+void JoystickEX_::sendState()
 {
 	uint8_t data[_hidReportSize];
 	int index = 0;

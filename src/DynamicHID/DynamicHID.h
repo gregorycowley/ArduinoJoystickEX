@@ -25,6 +25,9 @@
 #include <stdint.h>
 #include <Arduino.h>
 
+
+// todo: reconfigure for more devices, like the Seeed Xiao.
+
 #ifdef _VARIANT_ARDUINO_DUE_X_
   // The following values are the same as AVR's USBAPI.h
   // Reproduced here because SAM doesn't have these in

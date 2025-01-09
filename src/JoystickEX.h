@@ -1,5 +1,5 @@
 /*
-  Joystick.h
+  JoystickEX.h
 
   Copyright (c) 2015-2017, Matthew Heironimus
 
@@ -18,8 +18,8 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#ifndef JOYSTICK_h
-#define JOYSTICK_h
+#ifndef JOYSTICKEX_h
+#define JOYSTICKEX_h
 
 #include "DynamicHID/DynamicHID.h"
 
@@ -55,7 +55,7 @@
 #define JOYSTICK_TYPE_GAMEPAD              0x05
 #define JOYSTICK_TYPE_MULTI_AXIS           0x08
 
-class Joystick_
+class JoystickEX_
 {
 private:
 
@@ -66,14 +66,14 @@ private:
     int32_t   _xAxisRotation;
     int32_t   _yAxisRotation;
     int32_t   _zAxisRotation;
-	int16_t	                 _sliderAxis;
-	int16_t	                 _dialAxis;
+	int16_t   _sliderAxis;
+	int16_t   _dialAxis;
     int32_t   _throttle;
     int32_t   _rudder;
     int32_t   _accelerator;
     int32_t   _brake;
     int32_t   _steering;
-    int16_t    _hatSwitchValues[JOYSTICK_HATSWITCH_COUNT_MAXIMUM];
+    int16_t   _hatSwitchValues[JOYSTICK_HATSWITCH_COUNT_MAXIMUM];
     uint8_t   *_buttonValues = NULL;
 
     // Joystick Settings
@@ -120,7 +120,7 @@ protected:
     int buildAndSetSimulationValue(bool includeValue, int32_t value, int32_t valueMinimum, int32_t valueMaximum, uint8_t dataLocation[]);
 
 public:
-    Joystick_(
+    JoystickEX_(
         uint8_t hidReportId = JOYSTICK_DEFAULT_REPORT_ID,
         uint8_t joystickType = JOYSTICK_TYPE_JOYSTICK,
         uint8_t buttonCount = JOYSTICK_DEFAULT_BUTTON_COUNT,
